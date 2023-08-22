@@ -36,9 +36,10 @@ def main():
         warning = check_ssl_expiry(domain)
         warnings.append(warning)
 
-    # Format the warnings for Slack
+    # Join the warnings into a single Slack-formatted message
     slack_message = "\n".join(warnings)
 
+    # Print the Slack-formatted message
     print(slack_message)
 
 if __name__ == "__main__":
