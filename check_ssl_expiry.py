@@ -1,5 +1,6 @@
 import requests
 import certifi
+import datetime
 
 def check_ssl_expiry(domain):
   """Check the SSL expiry date for a domain."""
@@ -15,7 +16,12 @@ def check_ssl_expiry(domain):
     return f"{domain} is not expiring within 30 days."
 
 def main():
-  domains = ["example.com", "another-example.com"]
+  domains = []
+
+  with open("domains.txt") as f:
+    for line in f:
+      domains.append(line.strip())
+
   for domain in domains:
     warning = check_ssl_expiry(domain)
     print(warning)
