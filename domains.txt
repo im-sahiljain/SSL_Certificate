@@ -1,1 +1,10 @@
 google.com
+facebook.com
+github.com
+wikipedia.org
+example.com
+stackoverflow.com
+yahoo.com
+bing.com
+amazon.com
+reddit.com
