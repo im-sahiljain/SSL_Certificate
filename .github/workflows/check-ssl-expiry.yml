@@ -17,7 +17,6 @@ jobs:
       - name: Check SSL Expiry
         run: |
           python check_ssl_expiry.py
-
       - name: Send Slack Notification
         run: |
           curl -X POST -H 'Content-Type: application/json' -d '{
@@ -35,4 +34,3 @@ jobs:
               }
             ]
           }' "${SLACK_WEBHOOK_URL}"
-
