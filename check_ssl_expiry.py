@@ -11,7 +11,7 @@ def check_ssl_expiry(domain):
   remaining_days = (expiry_date - datetime.datetime.utcnow()).days
 
   if remaining_days <= 30:
-    return f"{domain} will expire in {remaining_days} days."
+    return f"{domain} will expire in {remaining_days} days. Please renew the certificate."
   else:
     return f"{domain} is not expiring within 30 days."
 
