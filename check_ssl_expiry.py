@@ -1,6 +1,7 @@
 import ssl
 import socket
 import datetime
+import os
 
 def check_ssl_expiry(domain):
     """Check the SSL expiry date for a domain."""
@@ -14,22 +15,24 @@ def check_ssl_expiry(domain):
                 remaining_days = (expiry_date - datetime.datetime.utcnow()).days
 
                 if remaining_days <= 30:
-                    return f"The SSL certificate for {domain} will expire in {remaining_days} days. Please renew the certificate."
+                    warning = f"The SSL certificate for {domain} will expire in {remaining_days} days. Please renew the certificate."
                 else:
-                    return f"The SSL certificate for {domain} is not expiring within 30 days."
+                    warning = f"The SSL certificate for {domain} is not expiring within 30 days."
+
+                # Export the domain and warning as environment variables
+                os.environ['DOMAIN'] = domain
+                os.environ['WARNING'] = warning
 
     except Exception as e:
-        return f"Error checking SSL certificate for {domain}: {str(e)}"
+        os.environ['DOMAIN'] = domain
+        os.environ['WARNING'] = f"Error checking SSL certificate for {domain}: {str(e)}"
 
 def main():
-    warnings = []
-
     with open("domains.txt") as f:
         for line in f:
             domain = line.strip()
-            warning = check_ssl_expiry(domain)
-            warnings.append(warning)
-            print(warning)
+            check_ssl_expiry(domain)
+            print(f"Domain: {os.environ['DOMAIN']}\nWarning: {os.environ['WARNING']}")
 
 if __name__ == "__main__":
     main()
