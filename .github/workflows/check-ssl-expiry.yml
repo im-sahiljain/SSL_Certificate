@@ -15,22 +15,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Check SSL Expiry
-        run: |
-          python check_ssl_expiry.py
+        run: python check_ssl_expiry.py
       - name: Send Slack Notification
         run: |
           curl -X POST -H 'Content-Type: application/json' -d '{
-            "text": "SSL Expiry Alert",
-            "attachments": [
-              {
-                "title": "Domain",
-                "value": "${{ steps.check_ssl_expiry.outputs.domain }}",
-                "short": false
-              },
-              {
-                "title": "Warning",
-                "value": "${{ steps.check_ssl_expiry.outputs.warning }}",
-                "short": false
-              }
-            ]
+            "text": "$(python check_ssl_expiry.py)",
           }' "${SLACK_WEBHOOK_URL}"
