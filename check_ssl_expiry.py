@@ -14,14 +14,12 @@ def check_ssl_expiry(domain):
                 remaining_days = (expiry_date - datetime.datetime.utcnow()).days
 
                 if remaining_days <= 30:
-                    warning = f"SSL Expiry Alert\n* Domain : {domain}\n* Warning : The SSL certificate for {domain} will expire in {remaining_days} days."
+                    return f"SSL Expiry Alert\n* Domain : {domain}\n* Warning : The SSL certificate for {domain} will expire in {remaining_days} days."
                 else:
-                    warning = f"SSL Expiry Alert\n* Domain : {domain}\n* Warning : The SSL certificate for {domain} is not expiring within 30 days."
+                    return f"SSL Expiry Alert\n* Domain : {domain}\n* Warning : The SSL certificate for {domain} is not expiring within 30 days."
 
     except Exception as e:
-        warning = f"SSL Expiry Alert\n* Domain : {domain}\n* Error checking SSL certificate for {domain}: {str(e)}"
-
-    return warning
+        return f"SSL Expiry Alert\n* Domain : {domain}\n* Error checking SSL certificate for {domain}: {str(e)}"
 
 def main():
     domains = []
